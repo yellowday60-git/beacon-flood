@@ -112,7 +112,7 @@ int main(int argc, char* argv[]){
         return 0;
     }    
 
-    string name(argv[2])
+    string name(argv[2]);
     get_list(name);
 
     // pcap default 
