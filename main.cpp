@@ -24,7 +24,7 @@ void usage(){
     return;
 }
 
-void DumpHex(const void* data, size_t size) {
+void DumpHex(void* data, size_t size) {
 	char ascii[17];
 	size_t i, j;
 	ascii[16] = '\0';
