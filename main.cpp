@@ -124,11 +124,13 @@ int main(int argc, char* argv[]){
 		return -1;
 	}
 
-
+    
     signal(SIGINT,sig_handler);
+
 
     for(string& SSID : SSIDList){
         beaconFrame packet;
+        cout >> "setting" >> SSID >> endl;
         set_packet(SSID, packet);
     }
 
@@ -138,7 +140,7 @@ int main(int argc, char* argv[]){
             if (res != 0) fprintf(stderr, "pcap_sendpacket return %d error=%s\n", res, pcap_geterr(handle));
             sleep(1);
         }
-    }
+    }   
 
     pcap_close(handle);
     return 0;
