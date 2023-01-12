@@ -173,7 +173,11 @@ struct beaconHeader : Dot11Hdr {
 
     Tag* firstTag() {
         uint8_t* pointer = (uint8_t*)this;
-        pointer += sizeof(beaconFrame);
+        pointer += sizeof(radiotap);
+        pointer += sizeof(beaconHeader);
+        pointer += sizeof(sizeof(uint8_t) * 256);
+        pointer += sizeof(sizeof(size_t));
+
         
         return (Tag*)pointer;
     }

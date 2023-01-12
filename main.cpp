@@ -31,7 +31,7 @@ void sig_handler(int signo){
 
 void get_list(string& msgFile){
     std::string SSID;
-    ifstream ifs(argv[2], std::ios::in);
+    ifstream ifs(msgFile, std::ios::in);
     if(ifs.fail()) return;
     while(not ifs.eof()) {
         getline(ifs, SSID);
@@ -86,7 +86,7 @@ void set_packet(string& SSID, beaconFrame& packet){
 
     tag->identifier = beaconHeader::TagDsParameterSet;
     tag->length = 1;
-    (*(uint8_t*)tag->value()) = beaconFrame::HtInformation.primaryChannel;
+    (*(uint8_t*)tag->value()) = 3;
     tag = tag->next();
 
     tag->identifier = beaconHeader::TagTrafficIndicationMap;
@@ -112,7 +112,7 @@ int main(int argc, char* argv[]){
         return 0;
     }    
 
-    get_list(argV[2]);
+    get_list(argv[2]);
 
     // pcap default 
     char* dev = argv[1];
