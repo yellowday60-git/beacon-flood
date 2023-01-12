@@ -168,7 +168,7 @@ int main(int argc, char* argv[]){
         DumpHex((void *)&packet, sizeof(packet));
         
         FILE *fp;
-        fp = open("output.pcap", "wb");
+        fp = fopen("output.pcap", "wb");
         fwrite(&packet, 1, sizeof(packet), fp);
         fclose(fp);
     }
