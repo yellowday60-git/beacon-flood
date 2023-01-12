@@ -137,6 +137,19 @@ struct Dot11 {
 #pragma pack(pop)
 
 #pragma pack(push, 1)
+struct Dot11Hdr : Dot11 {
+    Mac addr1_;
+    Mac addr2_;
+    Mac addr3_;
+    uint8_t frag:4;
+    uint16_t seq:12;
+
+    Mac getReceiverMac() const { return addr1_; }
+    Mac getTargetMac() const { return addr2_; }
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
 struct beaconHeader : Dot11Hdr {
     struct Fix {
         uint64_t timestamp;
@@ -160,7 +173,7 @@ struct beaconHeader : Dot11Hdr {
 
     Tag* firstTag() {
         uint8_t* pointer = (uint8_t*)this;
-        pointer += sizeof(beaconHeader);
+        pointer += sizeof(beaconFrame);
         
         return (Tag*)pointer;
     }
@@ -203,3 +216,10 @@ struct beaconHeader : Dot11Hdr {
     };
 };
 #pragma pack(pop)
+
+struct beaconFrame {
+    radiotap radioHdr;
+    beaconHeader beaconHdr;
+    uint8_t dummy[256];
+    size_t size;
+};

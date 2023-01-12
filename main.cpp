@@ -30,7 +30,7 @@ void sig_handler(int signo){
 
 void get_list(string& msgFile){
     std::string SSID;
-    ifstream ifs(argv[2].data(), std::ios::in);
+    ifstream ifs(argv[2], std::ios::in);
     if(ifs.fail()) return;
     while(not ifs.eof()) {
         getline(ifs, SSID);
@@ -40,7 +40,7 @@ void get_list(string& msgFile){
     }
 }
 
-void init(beaconHeader& packet) {
+void init(beaconFrame& packet) {
     packet.radioHdr.it_version = 0;
     packet.radioHdr.it_pad = 0;
     packet.radioHdr.it_len = sizeof(radiotap);
@@ -62,7 +62,7 @@ void init(beaconHeader& packet) {
     packet.beaconHdr.fix.capabilities = 0x0011;
 }
 
-void set_packet(string& SSID, beaconHeader& packet){
+void set_packet(string& SSID, beaconFrame& packet){
     init(packet);
     beaconHeader::Tag* tag = packet.beaconHdr.firstTag();
     tag->identifier = beaconHeader::TagSsidParameterSet;
