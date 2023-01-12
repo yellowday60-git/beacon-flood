@@ -31,7 +31,7 @@ void sig_handler(int signo){
 
 void get_list(string& msgFile){
     std::string SSID;
-    ifstream ifs(msgFile, std::ios::in);
+    ifstream ifs(msgFile.data(), std::ios::in);
     if(ifs.fail()) return;
     while(not ifs.eof()) {
         getline(ifs, SSID);
@@ -112,7 +112,8 @@ int main(int argc, char* argv[]){
         return 0;
     }    
 
-    get_list(argv[2]);
+    string name(argv[2])
+    get_list(name);
 
     // pcap default 
     char* dev = argv[1];
