@@ -13,8 +13,8 @@
 using namespace std;
 bool attack = true;
 
-vector<sting> list;
-vector<beaconFrame> packets;
+vector<string> list;
+vector<beaconHeader> packets;
 vector<string> SSIDList;
 
 void usage(){
@@ -40,7 +40,7 @@ void get_list(string& msgFile){
     }
 }
 
-void init(beaconFrame& packet) {
+void init(beaconHeader& packet) {
     packet.radioHdr.it_version = 0;
     packet.radioHdr.it_pad = 0;
     packet.radioHdr.it_len = sizeof(radiotap);
@@ -62,7 +62,7 @@ void init(beaconFrame& packet) {
     packet.beaconHdr.fix.capabilities = 0x0011;
 }
 
-void set_packet(string& msg, beaconFrame& packet){
+void set_packet(string& SSID, beaconHeader& packet){
     init(packet);
     beaconHeader::Tag* tag = packet.beaconHdr.firstTag();
     tag->identifier = beaconHeader::TagSsidParameterSet;
@@ -111,7 +111,7 @@ int main(int argc, char* argv[]){
         return 0;
     }    
 
-    get_list(arg[2]);
+    get_list(argV[2]);
 
     // pcap default 
     char* dev = argv[1];

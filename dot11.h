@@ -160,7 +160,7 @@ struct beaconHeader : Dot11Hdr {
 
     Tag* firstTag() {
         uint8_t* pointer = (uint8_t*)this;
-        pointer += sizeof(beaconFrame);
+        pointer += sizeof(beaconHeader);
         
         return (Tag*)pointer;
     }
