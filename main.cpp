@@ -10,6 +10,7 @@
 #include <vector>
 #include <fstream>
 #include <unistd.h>
+#include <stdlib.h>
 
 using namespace std;
 bool attack = true;
