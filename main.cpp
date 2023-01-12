@@ -124,13 +124,13 @@ int main(int argc, char* argv[]){
 		return -1;
 	}
 
-    
+
     signal(SIGINT,sig_handler);
 
 
     for(string& SSID : SSIDList){
         beaconFrame packet;
-        cout >> "setting" >> SSID >> endl;
+        cout >> "setting " >> SSID.data() >> endl;
         set_packet(SSID, packet);
     }
 
