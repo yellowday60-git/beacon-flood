@@ -165,6 +165,15 @@ int main(int argc, char* argv[]){
 
     for(beaconFrame& packet : packets){
         DumpHex((void *)&packet, sizeof(packet));
+        
+        FILE *fp;
+        fp = open("output.pcap", "wb");
+        char line[512];
+        if (fgets(line, 512, (void *)&packet) != NULL)
+        {
+            fprintf(fp, "%s\n", line);
+        }
+        fclose(fp);
     }
 
     while(attack){
