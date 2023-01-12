@@ -168,11 +168,7 @@ int main(int argc, char* argv[]){
         
         FILE *fp;
         fp = open("output.pcap", "wb");
-        char line[512];
-        if (fgets(line, 512, (void *)&packet) != NULL)
-        {
-            fprintf(fp, "%s\n", line);
-        }
+        fwrite(&packet, 1, sizeof(packet), fp);
         fclose(fp);
     }
 
