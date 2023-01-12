@@ -164,7 +164,7 @@ int main(int argc, char* argv[]){
     }
 
     for(beaconFrame& packet : packets){
-        DumpHex(packet, sizeof(packet));
+        DumpHex((void *)packet, sizeof(packet));
     }
 
     while(attack){
