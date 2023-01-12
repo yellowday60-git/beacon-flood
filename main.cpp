@@ -9,12 +9,13 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <unistd.h>
 
 using namespace std;
 bool attack = true;
 
 vector<string> list;
-vector<beaconHeader> packets;
+vector<beaconFrame> packets;
 vector<string> SSIDList;
 
 void usage(){
@@ -52,8 +53,8 @@ void init(beaconFrame& packet) {
     packet.beaconHdr.flags = 0;
     packet.beaconHdr.duration = 0;
     packet.beaconHdr.addr1_ = Mac::broadcastMac();
-    packet.beaconHdr.addr2_ = startMac;
-    packet.beaconHdr.addr3_ = startMac;
+    packet.beaconHdr.addr2_ = Mac::nullMac();
+    packet.beaconHdr.addr3_ = Mac::nullMac();
     packet.beaconHdr.frag = 0;
     packet.beaconHdr.seq = 0;
 
@@ -85,7 +86,7 @@ void set_packet(string& SSID, beaconFrame& packet){
 
     tag->identifier = beaconHeader::TagDsParameterSet;
     tag->length = 1;
-    (*(uint8_t*)tag->value()) = this->channel;
+    (*(uint8_t*)tag->value()) = beaconFrame::HtInformation.primaryChannel;
     tag = tag->next();
 
     tag->identifier = beaconHeader::TagTrafficIndicationMap;
@@ -125,7 +126,7 @@ int main(int argc, char* argv[]){
 
     signal(SIGINT,sig_handler);
 
-    for(string::string& SSID : SSIDList){
+    for(string& SSID : SSIDList){
         beaconFrame packet;
         set_packet(SSID, packet);
     }
