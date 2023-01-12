@@ -130,7 +130,7 @@ int main(int argc, char* argv[]){
 
     for(string& SSID : SSIDList){
         beaconFrame packet;
-        cout >> "setting " >> SSID.data() >> endl;
+        cout << "set : " << SSID.c_str() << endl ;
         set_packet(SSID, packet);
     }
 
